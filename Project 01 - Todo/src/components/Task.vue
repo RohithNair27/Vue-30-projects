@@ -1,5 +1,7 @@
 <script setup>
 const props = defineProps(["eachTask"]);
+defineEmits(["delete-task"]);
+let tasksComplete = defineModel("tasks-completed");
 </script>
 <template>
   <div
@@ -9,12 +11,12 @@ const props = defineProps(["eachTask"]);
     }"
   >
     <section class="task-info">
-      <input type="checkbox" />
+      <input type="checkbox" v-model="tasksComplete" />
       <span :class="{ complete: props.eachTask.completed }">{{
         props.eachTask.description
       }}</span>
     </section>
-    <button>❌</button>
+    <button @click="$emit('delete-task', props.eachTask.id)">❌</button>
   </div>
 </template>
 <style>
@@ -41,5 +43,8 @@ const props = defineProps(["eachTask"]);
 .complete {
   text-decoration: line-through;
   color: gray;
+}
+.task-info input {
+  margin-right: 20px;
 }
 </style>

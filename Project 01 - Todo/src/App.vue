@@ -1,81 +1,60 @@
+<template>
+  <header>
+    <AppHeader />
+  </header>
+  <main class="body-container">
+    <form @submit.prevent="addTask">
+      <input
+        type="text"
+        placeholder="enter your tasks"
+        v-model="inputText"
+        required
+      />
+      <label for="priority"></label>
+      <select v-model="taskPriority" id="priority" required>
+        <option disabled selected value="">Select priority</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <button type="submit">Add task</button>
+    </form>
+    <div class="tasks-container">
+      <Task
+        v-for="tasks in tasksList"
+        :key="tasks.id"
+        :each-task="tasks"
+        v-model:tasks-completed="tasks.completed"
+        @delete-task="deleteTask"
+      />
+    </div>
+  </main>
+</template>
 <script setup>
 import { ref } from "vue";
 import AppHeader from "./components/AppHeader.vue";
 import Task from "./components/Task.vue";
 
-let TasksList = ref([
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
+let tasksList = ref([]);
+let inputText = ref("");
+let taskPriority = ref("");
+function addTask() {
+  let newTask = {
+    id: tasksList.value.length + 1,
+    description: inputText.value,
+    priority: taskPriority.value,
     completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-  {
-    id: 2,
-    description: "And never see them",
-    priority: "high",
-    completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-  {
-    id: 3,
-    description: "And never see them",
-    priority: "medium",
-    completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-  {
-    id: 1,
-    description: "buy milk for kids",
-    priority: "low",
-    completed: false,
-  },
-]);
+  };
+  tasksList.value.push(newTask);
+  inputText.value = "";
+}
+function deleteTask(id) {
+  let index = tasksList.value.findIndex((element) => element.id === id);
+  if (index != -1) {
+    tasksList.value.splice(index, 1);
+  }
+}
 </script>
-
-<template>
-  <header>
-    <AppHeader />
-  </header>
-
-  <main class="body-container">
-    <form @submit.prevent="">
-      <input type="text" placeholder="enter your tasks" />
-      <button>Add task</button>
-    </form>
-    <div class="tasks-container">
-      <Task v-for="tasks in TasksList" :key="tasks.id" :eachTask="tasks" />
-    </div>
-  </main>
-</template>
 
 <style scoped>
 .body-container {
@@ -87,22 +66,22 @@ let TasksList = ref([
 .body-container form,
 .tasks-container {
   width: 50%;
-  /* border: 1px black solid; */
 }
 .body-container form {
+  padding: 25px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
 }
 .body-container input {
-  width: 40%;
-  height: 30px;
-  /* padding: 5px; */
-  margin-right: 10px;
+  flex: 1;
+  margin: 3px;
+  padding: 7px;
 }
 .body-container button {
-  height: 30px;
-  /* padding: 5px; */
+  flex: 0.3;
+  margin: 3px;
+}
+.body-container select {
+  flex: 0.5;
+  margin: 3px;
 }
 </style>
