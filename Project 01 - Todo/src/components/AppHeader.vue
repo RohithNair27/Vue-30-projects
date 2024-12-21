@@ -10,9 +10,9 @@
   height: 10vh;
   border: 1px lightgray solid;
   padding: 10px;
+  width: 100%;
   display: flex;
   align-items: center;
-  position: sticky;
 }
 .header-container img {
   height: 60%;

@@ -6,8 +6,9 @@
     <form @submit.prevent="addTask">
       <input
         type="text"
-        placeholder="enter your tasks"
+        placeholder="Enter Your Tasks"
         v-model="inputText"
+        maxlength="30"
         required
       />
       <label for="priority"></label>
@@ -26,15 +27,21 @@
         :each-task="tasks"
         v-model:tasks-completed="tasks.completed"
         @delete-task="deleteTask"
+        @task-status-changed="updateTaskStatus"
       />
     </div>
   </main>
 </template>
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import AppHeader from "./components/AppHeader.vue";
 import Task from "./components/Task.vue";
-
+import {
+  getAllTasks,
+  storeTasks,
+  deleteSingleTask,
+  updateTaskCompletionStatus,
+} from "./utils/LocalStorage";
 let tasksList = ref([]);
 let inputText = ref("");
 let taskPriority = ref("");
@@ -47,12 +54,20 @@ function addTask() {
   };
   tasksList.value.push(newTask);
   inputText.value = "";
+  storeTasks(newTask);
 }
 function deleteTask(id) {
   let index = tasksList.value.findIndex((element) => element.id === id);
   if (index != -1) {
     tasksList.value.splice(index, 1);
   }
+  deleteSingleTask(id);
+}
+onMounted(() => {
+  tasksList.value = getAllTasks();
+});
+function updateTaskStatus(id) {
+  updateTaskCompletionStatus(id);
 }
 </script>
 
@@ -65,7 +80,7 @@ function deleteTask(id) {
 }
 .body-container form,
 .tasks-container {
-  width: 50%;
+  width: 60%;
 }
 .body-container form {
   padding: 25px;
@@ -83,5 +98,35 @@ function deleteTask(id) {
 .body-container select {
   flex: 0.5;
   margin: 3px;
+}
+@media only screen and (max-width: 900px) {
+  .body-container form,
+  .tasks-container {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .body-container form,
+  .tasks-container {
+    width: 100%;
+  }
+  .body-container form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  .body-container form button {
+    width: 30%;
+    padding: 2px;
+    align-self: center;
+    min-width: 100px;
+  }
+  .body-container select {
+    margin: 3px;
+    padding: 4px;
+    width: 50%;
+    align-self: center;
+    min-width: 100px;
+  }
 }
 </style>
