@@ -1,12 +1,14 @@
 <template>
   <div class="recent-transactions-container">
-    <span>Recent Transactions</span>
-    <Transaction v-for="Details in TransactionDetails" :data="Details" />
+    <span class="recent-transactions-header">Recent Transactions</span>
+    <Transaction v-for="Details in transactions" :data="Details" />
   </div>
 </template>
 <script setup>
 import Transaction from "./Transaction.vue";
-import { TransactionDetails } from "../constants/TransactionDetails";
+const props = defineProps({
+  transactions: Object,
+});
 </script>
 <style>
 .recent-transactions-container {
@@ -20,5 +22,11 @@ import { TransactionDetails } from "../constants/TransactionDetails";
   justify-content: center;
   flex-direction: column;
   margin-bottom: 20px;
+}
+.recent-transactions-header {
+  font-size: 20px;
+  padding: 10px 10px 10px 0;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 </style>

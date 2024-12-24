@@ -15,13 +15,12 @@
   </div>
 </template>
 <script setup>
-import { defineProps, computed } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   data: Object,
 });
 
-console.log(props.data.description);
 let iconBackground = computed(() => {
   switch (props.data.description.toLowerCase()) {
     case "income":
