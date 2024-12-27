@@ -5,6 +5,7 @@
       'cost-button': true,
       [iconBackground]: data.placeholder,
     }"
+    @click="($emit('onClick',data.placeholder))"
   >
     {{ data.placeholder }}
   </button>
@@ -16,7 +17,7 @@ const props = defineProps({
   data: Object,
 });
 
-console.log(props.data.placeholder);
+
 let iconBackground = computed(() => {
   switch (props.data.placeholder) {
     case "Add income":

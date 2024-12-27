@@ -3,6 +3,7 @@
     v-if="modalVisible.isVisible"
     :modalDetails="modalVisible"
     @on-close-modal="onCloseModal"
+    @add-transaction="onAddTransaction"
   />
   <Header />
   <main>
@@ -14,7 +15,7 @@
         </h1>
       </section>
       <section class="total-cost-button-container">
-        <Button v-for="info in buttonsInformation" :data="info" />
+        <Button v-for="info in buttonsInformation" :data="info" @onClick="onClickIncome"/>
       </section>
     </section>
     <section class="finance-container">
@@ -27,14 +28,14 @@
   </main>
 </template>
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Header from "./components/Header.vue";
 import Button from "./components/Button.vue";
 import Modal from "./components/Modal.vue";
 import FinanceSummaryCard from "./components/FinanceSummaryCard.vue";
 import RecentTransactions from "./components/RecentTransactions.vue";
 
-import { IncomeModal, AddInitalIncomeModal } from "./constants/ModalConstants";
+import { IncomeModal, AddInitalIncomeModal,AddExpenseModal,UpdateSavingGoalModal } from "./constants/ModalConstants";
 import { getAllMoneyDetails } from "./utils/LocalStorage";
 
 const modalVisible = ref({});
@@ -45,79 +46,29 @@ const buttonsInformation = [
   { id: 3, placeholder: "Add saving goals" },
 ];
 let financialData = ref({
-  currentBalance: 2500.53,
+  currentBalance: 0,
   overAllDetails: [
     {
       id: 1,
       description: "Income",
-      value: "4,000.00",
+      value: 0,
       icon: "pi pi-arrow-up",
     },
     {
       id: 2,
       description: "Expense",
-      value: "2,500.00",
+      value: 0,
       icon: "pi pi-arrow-down",
     },
     {
       id: 3,
       description: "Saving Goals",
-      value: "10,000.00",
+      value: 0,
       icon: "pi pi-chart-bar",
     },
   ],
 
-  transactions: [
-    {
-      id: 1,
-      description: "Grocery Shopping",
-      amount: "-$85.50",
-      paymentMethod: "Debit Card",
-      date: "June 15, 2023",
-    },
-    {
-      id: 2,
-      description: "Salary Deposit",
-      amount: "+$2,000.00",
-      paymentMethod: "Direct Deposit",
-      date: "June 1, 2023",
-    },
-    {
-      id: 3,
-      description: "Utility Bill",
-      amount: "-$120.75",
-      paymentMethod: "Online Payment",
-      date: "June 10, 2023",
-    },
-    {
-      id: 4,
-      description: "Coffee Shop",
-      amount: "-$12.50",
-      paymentMethod: "Credit Card",
-      date: "June 18, 2023",
-    },
-    {
-      id: 5,
-      description: "Freelance Payment",
-      amount: "+$500.00",
-      paymentMethod: "PayPal",
-      date: "June 20, 2023",
-    },
-    {
-      id: 6,
-      description: "Rent",
-      amount: "-$950.00",
-      paymentMethod: "Bank Transfer",
-      date: "June 5, 2023",
-    },
-    {
-      id: 7,
-      description: "Stock Dividend",
-      amount: "+$150.00",
-      paymentMethod: "Direct Deposit",
-      date: "June 25, 2023",
-    },
-  ],
+  
 });
 function checkNewUser() {
   let storedDetails = getAllMoneyDetails();
@@ -125,13 +76,44 @@ function checkNewUser() {
     modalVisible.value = {
       isVisible: true,
       modalInformation: AddInitalIncomeModal,
+      
     };
   }
+}
+console.log(modalVisible.value,'this is the value')
+function onClickIncome(typeOfTransaction){
+  switch(typeOfTransaction){
+    case 'Add income':
+    
+    modalVisible.value = {
+    isVisible: true,
+    modalInformation: IncomeModal,
+  };
+  break;
+  case 'Add expense':
+  modalVisible.value = {
+    isVisible: true,
+    modalInformation: AddExpenseModal,
+  };
+  break;
+  case 'Add saving goals':
+  modalVisible.value = {
+    isVisible: true,
+    modalInformation: UpdateSavingGoalModal,
+  };
+  }
+  
+}
+function onAddTransaction(task){
+  switch(task){
+    case 'Add income':
+   
+  }
+  
 }
 function onCloseModal() {
   modalVisible.value = {};
 }
-console.log(modalVisible.value.isVisible, "this is the value");
 onMounted(() => {
   checkNewUser();
 });
