@@ -1,9 +1,9 @@
 <template>
-  <Modal
-    v-if="modalVisible.isVisible"
+  <ModalManager
     :modalDetails="modalVisible"
-    @on-close-modal="onCloseModal"
-    @add-transaction="onAddTransaction"
+    @close="onCloseModal"
+    @openAddIncomeModal="onClickAddIncomeModal"
+    @modifyBalance="modifyBalance"
   />
   <Header />
   <main>
@@ -15,7 +15,11 @@
         </h1>
       </section>
       <section class="total-cost-button-container">
-        <Button v-for="info in buttonsInformation" :data="info" @onClick="onClickIncome"/>
+        <Button
+          v-for="info in buttonsInformation"
+          :data="info"
+          @onClick="onClickIncome"
+        />
       </section>
     </section>
     <section class="finance-container">
@@ -32,10 +36,17 @@ import { onMounted, ref, watch } from "vue";
 import Header from "./components/Header.vue";
 import Button from "./components/Button.vue";
 import Modal from "./components/Modal.vue";
+import ModalManager from "./components/modal/ModalManager.vue";
 import FinanceSummaryCard from "./components/FinanceSummaryCard.vue";
 import RecentTransactions from "./components/RecentTransactions.vue";
 
-import { IncomeModal, AddInitalIncomeModal,AddExpenseModal,UpdateSavingGoalModal } from "./constants/ModalConstants";
+import {
+  IncomeModal,
+  AddInitalIncomeModal,
+  AddExpenseModal,
+  UpdateSavingGoalModal,
+  ModalTypeConstant,
+} from "./constants/ModalConstants";
 import { getAllMoneyDetails } from "./utils/LocalStorage";
 
 const modalVisible = ref({});
@@ -45,7 +56,7 @@ const buttonsInformation = [
   { id: 2, placeholder: "Add expense" },
   { id: 3, placeholder: "Add saving goals" },
 ];
-let financialData = ref({
+const financialData = ref({
   currentBalance: 0,
   overAllDetails: [
     {
@@ -67,49 +78,79 @@ let financialData = ref({
       icon: "pi pi-chart-bar",
     },
   ],
-
-  
+  transactions: [],
 });
 function checkNewUser() {
   let storedDetails = getAllMoneyDetails();
   if (!storedDetails.currentBalance) {
     modalVisible.value = {
       isVisible: true,
-      modalInformation: AddInitalIncomeModal,
-      
+      modalType: ModalTypeConstant.WELCOME_MODAL,
     };
   }
 }
-console.log(modalVisible.value,'this is the value')
-function onClickIncome(typeOfTransaction){
-  switch(typeOfTransaction){
-    case 'Add income':
-    
-    modalVisible.value = {
-    isVisible: true,
-    modalInformation: IncomeModal,
-  };
-  break;
-  case 'Add expense':
+function onClickAddIncomeModal() {
   modalVisible.value = {
     isVisible: true,
-    modalInformation: AddExpenseModal,
+    modalType: ModalTypeConstant.INCOME_MODAL,
   };
-  break;
-  case 'Add saving goals':
-  modalVisible.value = {
-    isVisible: true,
-    modalInformation: UpdateSavingGoalModal,
-  };
-  }
-  
 }
-function onAddTransaction(task){
-  switch(task){
-    case 'Add income':
-   
+function modifyBalance(Transaction) {
+  switch (Transaction.type) {
+    case "INCOME":
+      financialData.value.currentBalance += Transaction.amount;
+      financialData.value.overAllDetails[0].value += Transaction.amount;
+      financialData.value.transactions.push({
+        id: financialData.value.transactions.length,
+        description: Transaction.aboutExpense,
+        amount: Transaction.amount,
+        type: Transaction.type,
+        date: "2020/11/29",
+        paymentMethod: Transaction.incomeType,
+      });
+      onCloseModal();
+      break;
+    case "EXPENSE":
+      financialData.value.currentBalance -= Transaction.amount;
+      financialData.value.overAllDetails[1].value += Transaction.amount;
+      financialData.value.transactions.push({
+        id: financialData.value.transactions.length,
+        description: Transaction.incomeType,
+        amount: Transaction.amount,
+        type: Transaction.type,
+        date: "2020/11/29",
+        paymentMethod: Transaction.incomeType,
+      });
+      onCloseModal();
+      break;
   }
-  
+}
+
+function onClickIncome(typeOfTransaction) {
+  switch (typeOfTransaction) {
+    case "Add income":
+      modalVisible.value = {
+        isVisible: true,
+        modalType: ModalTypeConstant.INCOME_MODAL,
+      };
+      break;
+    case "Add expense":
+      modalVisible.value = {
+        isVisible: true,
+        modalType: ModalTypeConstant.EXPENSE_MODAL,
+      };
+      break;
+    case "Add saving goals":
+      modalVisible.value = {
+        isVisible: true,
+        modalType: ModalTypeConstant.SAVING_MODAL,
+      };
+  }
+}
+function onAddTransaction(task) {
+  switch (task) {
+    case "Add income":
+  }
 }
 function onCloseModal() {
   modalVisible.value = {};

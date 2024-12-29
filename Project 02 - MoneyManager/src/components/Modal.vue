@@ -1,36 +1,44 @@
 <template>
-  <div class="modal-body" @click="$emit('on-close-modal')">
-    <form class="modal-container">
-      <div class="modal-container-header">
-
-        <h1>{{ modalDetails.modalInformation.header }}</h1>
-        <span>{{ modalDetails.modalInformation.headerInfo }}</span>
-      </div>
-      <div class="modal-input-container">
-        <section
-          v-for="details in modalDetails.modalInformation.inputFields"
-          class="input-container"
-        >
-          <label>{{ details.label }}</label>
-          <input id="amount-input" :placeholder="details.placeholder" v-bind="modalDetails.modalInformation.value"/>
-        </section>
-        <section class="submit-container" v-if="modalDetails.modalInformation.dropDown">
-          <select id="incomeCategories">
-            <option
-              v-for="details in modalDetails.modalInformation.dropDown"
-              value="details.value"
-            >
-              {{ details.label }}
-            </option>
-          </select>
-          <Button :data="modalDetails.modalInformation.submitButton" @onClick="$emit('add-transaction',$event)"/>
-        </section>
-      </div>
-    </form>
-  </div>
+  <BaseModal>
+    <div class="modal-container-header">
+      <h1>{{ modalDetails.modalInformation.header }}</h1>
+      <span>{{ modalDetails.modalInformation.headerInfo }}</span>
+    </div>
+    <div class="modal-input-container">
+      <section
+        v-for="details in modalDetails.modalInformation.inputFields"
+        class="input-container"
+      >
+        <label>{{ details.label }}</label>
+        <input
+          id="amount-input"
+          :placeholder="details.placeholder"
+          v-bind="modalDetails.modalInformation.value"
+        />
+      </section>
+      <section
+        class="submit-container"
+        v-if="modalDetails.modalInformation.dropDown"
+      >
+        <select id="incomeCategories">
+          <option
+            v-for="details in modalDetails.modalInformation.dropDown"
+            value="details.value"
+          >
+            {{ details.label }}
+          </option>
+        </select>
+        <Button
+          :data="modalDetails.modalInformation.submitButton"
+          @onClick="$emit('add-transaction', $event)"
+        />
+      </section>
+    </div>
+  </BaseModal>
 </template>
 <script setup>
 import Button from "./Button.vue";
+import BaseModal from "./baseui/BaseModal.vue";
 defineEmits(["onClickOutside"]);
 const props = defineProps({ modalDetails: Object });
 </script>
@@ -51,21 +59,19 @@ const props = defineProps({ modalDetails: Object });
   position: relative;
   background-color: #fff;
   padding: 20px;
-  border-radius:10px;
- 
+  border-radius: 10px;
 }
-.modal-container-header{
+.modal-container-header {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding:20px;
-  text-align:center;
+  padding: 20px;
+  text-align: center;
 }
-.modal-container-header h1{
-  padding:0px;
-  margin:0px
-  
+.modal-container-header h1 {
+  padding: 0px;
+  margin: 0px;
 }
 .modal-input-container {
   height: fit-content;
@@ -74,7 +80,6 @@ const props = defineProps({ modalDetails: Object });
   width: 80%;
   padding: 20px;
   justify-self: center;
- 
 }
 .modal-input-container input {
   all: unset;
@@ -83,7 +88,7 @@ const props = defineProps({ modalDetails: Object });
   border-radius: 10px;
   border: 1px lightgray solid;
 }
-.modal-input-container label{
+.modal-input-container label {
   margin-bottom: 5px;
 }
 .input-container {
@@ -91,17 +96,13 @@ const props = defineProps({ modalDetails: Object });
   flex-direction: column;
 }
 .submit-container {
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
-.submit-container select{
- 
+.submit-container select {
   height: 30px;
-  width:50%;
+  width: 50%;
   border-radius: 10px;
 }
-
 </style>

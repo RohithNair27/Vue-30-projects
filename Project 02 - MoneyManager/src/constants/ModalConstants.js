@@ -1,20 +1,20 @@
 export const IncomeModal = {
   header: "Add Income",
-  headerInfo:"Add the money spent and select the category closest to the item",
+  headerInfo: "Add the money spent and select the category closest to the item",
   inputFields: [
     {
       type: "input",
       id: "amount-input",
       label: "Enter amount",
       placeholder: "$20",
-      value:'',
+      value: "",
     },
     {
       type: "input",
       id: "Reason-input",
       label: "Reason",
       placeholder: "Pizza",
-      value:'',
+      value: "",
     },
   ],
   dropDown: [
@@ -29,9 +29,9 @@ export const IncomeModal = {
 };
 export const AddInitalIncomeModal = {
   header: "Welcome to money app 🤑",
-  headerInfo:"This app helps you track your day to day expenses. It stores all the data in browser",
+  headerInfo:
+    "This app helps you track your day to day expenses. It stores all the data in browser",
   inputFields: [
-
     {
       type: "input",
       id: "amount-input",
@@ -46,7 +46,7 @@ export const AddInitalIncomeModal = {
     },
   ],
   dropDown: [
-    {value:"0",label: "Select the type of income"},
+    { value: "0", label: "Select the type of income" },
     { value: "1", label: "Salary" },
     { value: "2", label: "Business" },
     { value: "3", label: "Investments" },
@@ -79,7 +79,6 @@ export const AddExpenseModal = {
     },
   ],
   dropDown: [
-
     { value: "1", label: "Food" },
     { value: "2", label: "Rent" },
     { value: "3", label: "Utilities" },
@@ -111,4 +110,11 @@ export const UpdateSavingGoalModal = {
     component: "Button",
     placeholder: "Update Goal",
   },
+};
+
+export const ModalTypeConstant = {
+  WELCOME_MODAL: "WELCOME_MODAL",
+  INCOME_MODAL: "INCOME_MODAL",
+  EXPENSE_MODAL: "EXPENSE_MODAL",
+  SAVING_MODAL: "SAVING_MODAL",
 };
