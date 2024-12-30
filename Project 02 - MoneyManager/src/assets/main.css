@@ -1,13 +1,10 @@
 :root {
   --primary-color: rgb(37, 99, 235);
   --secondary-color: #2ecc71;
+  --secondary-color-light: rgb(170, 252, 200);
+  --secondary-color-dark: #059669;
   --text-color: #2c3e50;
   --background-color: rgb(193, 193, 193);
-
-  --color-primary: #3b82f6; /* Blue 500 */
-  --color-primary-dark: #2563eb; /* Blue 600 */
-  --color-secondary: #10b981; /* Emerald 500 */
-  --color-secondary-dark: #059669; /* Emerald 600 */
 
   /* Text Colors */
   --color-text-primary: #111827; /* Gray 900 */
@@ -19,10 +16,6 @@
   --color-success: #10b981; /* Emerald 500 */
   --color-warning: #f59e0b; /* Amber 500 */
   --color-error: #ef4444; /* Red 500 */
-
-  /* Background Colors */
-  --color-background: #ffffff; /* White */
-  --color-background-alt: #f3f4f6; /* Gray 100 */
 
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */

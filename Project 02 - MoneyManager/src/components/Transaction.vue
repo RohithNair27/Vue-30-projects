@@ -1,36 +1,39 @@
 <template>
   <div class="transaction-container">
-    <section class="transaction-text">
-      <span class="transaction-text-description">{{ data.description }}</span>
-      <section>
-        <i class="pi pi-credit-card" style="font-size: 1.5rem"></i>
-        <span>{{ data.paymentMethod }}</span>
-      </section>
+    <section class="transaction-text left-container">
+      <span class="transaction-text-description">{{ transactionItem.description }}</span>
+      <div class="transaction-payment-method">
+        <i class="pi pi-credit-card" ></i>
+        <span>{{ transactionItem.paymentMethod }}</span>
+      </div>
     </section>
-    <section class="transaction-text">
-      <span :class="transactionType.class">{{
-        `${transactionType.icon} $  ${data.amount}`
+    <section class="transaction-text right-container">
+      <span :class="transactionStyleConfig.class">{{
+        `${transactionStyleConfig.icon} $${transactionItem.amount}`
       }}</span>
-      <span>{{ data.date }}</span>
+      <span class="transaction-date">{{ transactionItem.date }}</span>
     </section>
   </div>
 </template>
 <script setup>
 import { computed } from "vue";
+
+import { TRANSACTION_TYPES } from "@/constants/TransactionDetails";
+
 const props = defineProps({
-  data: Object,
+  transactionItem: Object,
 });
-const transactionType = computed(() => {
-  if (props.data.type === "INCOME") {
+const transactionStyleConfig = computed(() => {
+  if (props.transactionItem.type === TRANSACTION_TYPES.INCOME) {
     return { class: "transaction-income", icon: "+" };
   } else {
     return { class: "transaction-expense", icon: "-" };
   }
 });
 </script>
-<style>
+<style scoped>
 .transaction-container {
-  padding: 10px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px rgb(218, 218, 218) solid;
@@ -38,20 +41,44 @@ const transactionType = computed(() => {
 .transaction-text {
   display: flex;
   flex-direction: column;
+  padding: 0px 20px 0px 20px;
 }
+.left-container{
+  width:50%;
+}
+
 .transaction-text-description {
   color: var(--primary-color);
 }
 .transaction-income {
-  background-color: rgb(34, 197, 94);
+  background-color: var(--secondary-color-light);
   border-radius: 20px;
   width: fit-content;
-  padding: 5px;
+  padding: 0px 8px 0px 8px;
+  color:var(--secondary-color-dark);
+  
 }
 .transaction-expense {
-  background-color: red;
+  background-color: #fee2e2;
+  color:#af2729;
   border-radius: 20px;
   width: fit-content;
-  padding: 5px;
+  padding: 0px 8px 0px 8px;
+  font-weight: var(--font-weight-semibold);
+  
+}
+
+.transaction-payment-method,.transaction-date{
+  color: var(--color-text-tertiary);
+  display:flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: var(--font-size-sm);
+  font-weight: var( --font-weight-normal);
+ 
+}
+.transaction-payment-method i{
+  margin-right:5px;
+  font-size: 1.2rem
 }
 </style>

@@ -12,7 +12,7 @@
       @submit.prevent="
         $emit('edit-expense', {
           amount,
-          type: 'EDIT',
+          type: TRANSACTION_TYPES.EDIT,
         })
       "
     >
@@ -37,6 +37,9 @@
 </template>
 <script setup>
 import { ref } from "vue";
+
+import { TRANSACTION_TYPES } from "@/constants/TransactionDetails";
+
 let amount = ref("");
 </script>
 <style>

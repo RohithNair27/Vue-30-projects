@@ -16,7 +16,7 @@
           amount,
           ExpenseType,
           aboutExpense,
-          type: 'EXPENSE',
+          type: TRANSACTION_TYPES.EXPENSE,
         })
       "
     >
@@ -55,6 +55,9 @@
 </template>
 <script setup>
 import { ref } from "vue";
+
+import { TRANSACTION_TYPES } from "@/constants/TransactionDetails";
+
 let amount = ref("");
 let aboutExpense = ref();
 let ExpenseType = ref("Salary");

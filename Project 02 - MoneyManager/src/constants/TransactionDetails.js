@@ -1,51 +1,6 @@
-export const TransactionDetails = [
-  {
-    id: 1,
-    description: "Grocery Shopping",
-    amount: "-$85.50",
-    paymentMethod: "Debit Card",
-    date: "June 15, 2023",
-  },
-  {
-    id: 2,
-    description: "Salary Deposit",
-    amount: "+$2,000.00",
-    paymentMethod: "Direct Deposit",
-    date: "June 1, 2023",
-  },
-  {
-    id: 3,
-    description: "Utility Bill",
-    amount: "-$120.75",
-    paymentMethod: "Online Payment",
-    date: "June 10, 2023",
-  },
-  {
-    id: 4,
-    description: "Coffee Shop",
-    amount: "-$12.50",
-    paymentMethod: "Credit Card",
-    date: "June 18, 2023",
-  },
-  {
-    id: 5,
-    description: "Freelance Payment",
-    amount: "+$500.00",
-    paymentMethod: "PayPal",
-    date: "June 20, 2023",
-  },
-  {
-    id: 6,
-    description: "Rent",
-    amount: "-$950.00",
-    paymentMethod: "Bank Transfer",
-    date: "June 5, 2023",
-  },
-  {
-    id: 7,
-    description: "Stock Dividend",
-    amount: "+$150.00",
-    paymentMethod: "Direct Deposit",
-    date: "June 25, 2023",
-  },
-];
+export const TRANSACTION_TYPES = {
+  INCOME: "INCOME",
+  EXPENSE: "EXPENSE",
+  EDIT: "EDIT",
+};
+

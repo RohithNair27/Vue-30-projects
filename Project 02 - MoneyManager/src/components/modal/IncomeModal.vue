@@ -16,7 +16,7 @@
           amount,
           incomeType,
           aboutExpense,
-          type: 'INCOME',
+          type: TRANSACTION_TYPES.INCOME,
         })
       "
     >
@@ -54,9 +54,13 @@
 </template>
 <script setup>
 import { ref } from "vue";
+
+import { TRANSACTION_TYPES } from "@/constants/TransactionDetails";
+
 let amount = ref();
 let aboutExpense = ref();
 let incomeType = ref("Salary");
+
 </script>
 <style>
 .bank-image {

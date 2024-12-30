@@ -41,6 +41,7 @@ import FinanceSummaryCard from "./components/FinanceSummaryCard.vue";
 import RecentTransactions from "./components/RecentTransactions.vue";
 
 import { ModalTypeConstant } from "./constants/ModalConstants";
+import { TRANSACTION_TYPES } from "./constants/TransactionDetails";
 
 import { getTodaysData } from "./utils/getDate";
 import { getAllMoneyDetails } from "./utils/LocalStorage";
@@ -92,7 +93,7 @@ function onClickAddIncomeModal() {
 }
 function modifyBalance(Transaction) {
   switch (Transaction.type) {
-    case "INCOME":
+    case TRANSACTION_TYPES.INCOME:
       financialData.value.currentBalance += Transaction.amount;
       financialData.value.overAllDetails[0].value += Transaction.amount;
       financialData.value.transactions.push({
@@ -107,7 +108,7 @@ function modifyBalance(Transaction) {
       });
       onCloseModal();
       break;
-    case "EXPENSE":
+    case TRANSACTION_TYPES.EXPENSE:
       financialData.value.currentBalance -= Transaction.amount;
       financialData.value.overAllDetails[1].value += Transaction.amount;
       financialData.value.transactions.push({
@@ -122,7 +123,7 @@ function modifyBalance(Transaction) {
       });
       onCloseModal();
       break;
-    case "EDIT":
+    case TRANSACTION_TYPES.EDIT:
       financialData.value.overAllDetails[2].value = Transaction.amount;
       onCloseModal();
       break;
