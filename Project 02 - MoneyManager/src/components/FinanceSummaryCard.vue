@@ -9,8 +9,8 @@
       <i :class="data.icon" style="font-size: 1.5rem"></i>
     </section>
     <section class="finance-info">
-      <span>{{ data.description }}</span>
-      <span>$ {{ data.value }}</span>
+      <span class="stat-label">{{ data.description }}</span>
+      <span class="stat-amount">$ {{ data.value }}</span>
     </section>
   </div>
 </template>
@@ -40,6 +40,17 @@ let iconBackground = computed(() => {
   border-radius: 10px;
   display: flex;
   align-items: center;
+}
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-medium);
+}
+
+.stat-amount {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
 }
 .finance-icon {
   padding: 14px;

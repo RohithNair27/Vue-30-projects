@@ -33,24 +33,19 @@
 </template>
 <script setup>
 import { onMounted, ref, watch } from "vue";
+
 import Header from "./components/Header.vue";
 import Button from "./components/Button.vue";
-import Modal from "./components/Modal.vue";
 import ModalManager from "./components/modal/ModalManager.vue";
 import FinanceSummaryCard from "./components/FinanceSummaryCard.vue";
 import RecentTransactions from "./components/RecentTransactions.vue";
 
-import {
-  IncomeModal,
-  AddInitalIncomeModal,
-  AddExpenseModal,
-  UpdateSavingGoalModal,
-  ModalTypeConstant,
-} from "./constants/ModalConstants";
+import { ModalTypeConstant } from "./constants/ModalConstants";
+
+import { getTodaysData } from "./utils/getDate";
 import { getAllMoneyDetails } from "./utils/LocalStorage";
 
 const modalVisible = ref({});
-
 const buttonsInformation = [
   { id: 1, placeholder: "Add income" },
   { id: 2, placeholder: "Add expense" },
@@ -101,11 +96,13 @@ function modifyBalance(Transaction) {
       financialData.value.currentBalance += Transaction.amount;
       financialData.value.overAllDetails[0].value += Transaction.amount;
       financialData.value.transactions.push({
-        id: financialData.value.transactions.length,
-        description: Transaction.aboutExpense,
+        id: financialData.value.transactions.length + 1,
+        description:
+          Transaction.aboutExpense.charAt(0).toUpperCase() +
+          Transaction.aboutExpense.slice(1),
         amount: Transaction.amount,
         type: Transaction.type,
-        date: "2020/11/29",
+        date: getTodaysData(),
         paymentMethod: Transaction.incomeType,
       });
       onCloseModal();
@@ -114,13 +111,19 @@ function modifyBalance(Transaction) {
       financialData.value.currentBalance -= Transaction.amount;
       financialData.value.overAllDetails[1].value += Transaction.amount;
       financialData.value.transactions.push({
-        id: financialData.value.transactions.length,
-        description: Transaction.incomeType,
+        id: financialData.value.transactions.length + 1,
+        description:
+          Transaction.aboutExpense.charAt(0).toUpperCase() +
+          Transaction.aboutExpense.slice(1),
         amount: Transaction.amount,
         type: Transaction.type,
-        date: "2020/11/29",
-        paymentMethod: Transaction.incomeType,
+        date: getTodaysData(),
+        paymentMethod: Transaction.ExpenseType,
       });
+      onCloseModal();
+      break;
+    case "EDIT":
+      financialData.value.overAllDetails[2].value = Transaction.amount;
       onCloseModal();
       break;
   }
@@ -179,11 +182,15 @@ main {
   justify-content: space-between;
 }
 .total-cost-container-header {
-  font-size: 18px;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
 }
 .total-cost-container-price {
   padding: 0px;
   margin: 0px;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  color: black;
 }
 .total-cost-button-container {
   display: flex;

@@ -1,11 +1,16 @@
 <template>
   <div class="transaction-container">
     <section class="transaction-text">
-      <span>{{ data.description }}</span>
-      <span>{{ data.paymentMethod }}</span>
+      <span class="transaction-text-description">{{ data.description }}</span>
+      <section>
+        <i class="pi pi-credit-card" style="font-size: 1.5rem"></i>
+        <span>{{ data.paymentMethod }}</span>
+      </section>
     </section>
     <section class="transaction-text">
-      <span :class="transactionType">{{ data.amount }}</span>
+      <span :class="transactionType.class">{{
+        `${transactionType.icon} $  ${data.amount}`
+      }}</span>
       <span>{{ data.date }}</span>
     </section>
   </div>
@@ -17,32 +22,35 @@ const props = defineProps({
 });
 const transactionType = computed(() => {
   if (props.data.type === "INCOME") {
-    return "transaction-income";
+    return { class: "transaction-income", icon: "+" };
   } else {
-    return "transaction-expense";
+    return { class: "transaction-expense", icon: "-" };
   }
 });
 </script>
 <style>
 .transaction-container {
-  padding: 10px 20px 15px 0px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px gray solid;
+  border-bottom: 1px rgb(218, 218, 218) solid;
 }
 .transaction-text {
   display: flex;
   flex-direction: column;
 }
+.transaction-text-description {
+  color: var(--primary-color);
+}
 .transaction-income {
   background-color: rgb(34, 197, 94);
-  border-radius: 5px;
+  border-radius: 20px;
   width: fit-content;
   padding: 5px;
 }
 .transaction-expense {
   background-color: red;
-  border-radius: 5px;
+  border-radius: 20px;
   width: fit-content;
   padding: 5px;
 }

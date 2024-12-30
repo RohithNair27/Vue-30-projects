@@ -14,7 +14,7 @@
       @submit.prevent="
         $emit('add-expense', {
           amount,
-          incomeType,
+          ExpenseType,
           aboutExpense,
           type: 'EXPENSE',
         })

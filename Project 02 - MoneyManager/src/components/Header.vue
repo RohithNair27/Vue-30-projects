@@ -19,8 +19,8 @@ header {
 }
 header h1 {
   color: rgb(37, 99, 235);
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
 }
 .more-transaction-button {
   all: unset;

@@ -12,6 +12,10 @@
       v-else-if="modalDetails.modalType === ModalTypeConstant.EXPENSE_MODAL"
       @add-expense="$emit('modifyBalance', $event)"
     />
+    <EditSavingModal
+      v-else-if="modalDetails.modalType === ModalTypeConstant.SAVING_MODAL"
+      @edit-expense="$emit('modifyBalance', $event)"
+    />
   </BaseModal>
 </template>
 <script setup>
@@ -19,7 +23,7 @@ import BaseModal from "../baseui/BaseModal.vue";
 import IncomeModal from "./IncomeModal.vue";
 import WelcomeModal from "./WelcomeModal.vue";
 import ExpenseModal from "./ExpenseModal.vue";
-
+import EditSavingModal from "./EditSavingModal.vue";
 import { ModalTypeConstant } from "@/constants/ModalConstants";
 
 defineProps(["modalDetails"]);

@@ -1,8 +1,49 @@
+:root {
+  --primary-color: rgb(37, 99, 235);
+  --secondary-color: #2ecc71;
+  --text-color: #2c3e50;
+  --background-color: rgb(193, 193, 193);
+
+  --color-primary: #3b82f6; /* Blue 500 */
+  --color-primary-dark: #2563eb; /* Blue 600 */
+  --color-secondary: #10b981; /* Emerald 500 */
+  --color-secondary-dark: #059669; /* Emerald 600 */
+
+  /* Text Colors */
+  --color-text-primary: #111827; /* Gray 900 */
+  --color-text-secondary: #4b5563; /* Gray 600 */
+  --color-text-tertiary: #9ca3af; /* Gray 400 */
+  --color-text-inverse: #ffffff; /* White */
+
+  /* Status Colors */
+  --color-success: #10b981; /* Emerald 500 */
+  --color-warning: #f59e0b; /* Amber 500 */
+  --color-error: #ef4444; /* Red 500 */
+
+  /* Background Colors */
+  --color-background: #ffffff; /* White */
+  --color-background-alt: #f3f4f6; /* Gray 100 */
+
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+}
+
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   padding: 0px;
   margin: 0px;
-  background-color: rgb(193, 193, 193);
+  background-color: var(--background-color);
 }
