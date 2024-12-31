@@ -5,6 +5,7 @@
   --secondary-color-dark: #059669;
   --text-color: #2c3e50;
   --background-color: rgb(193, 193, 193);
+  --secondary-background-color:#ffffff;
 
   /* Text Colors */
   --color-text-primary: #111827; /* Gray 900 */
@@ -16,6 +17,8 @@
   --color-success: #10b981; /* Emerald 500 */
   --color-warning: #f59e0b; /* Amber 500 */
   --color-error: #ef4444; /* Red 500 */
+
+  --box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16);
 
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */

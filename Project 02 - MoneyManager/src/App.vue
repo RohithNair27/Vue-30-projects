@@ -5,7 +5,7 @@
     @openAddIncomeModal="onClickAddIncomeModal"
     @modifyBalance="modifyBalance"
   />
-  <Header />
+  <MainHeader @click-delete-all="onClickIncome"/>
   <main>
     <section class="total-cost-container">
       <section>
@@ -34,7 +34,7 @@
 <script setup>
 import { onMounted, ref, watch } from "vue";
 
-import Header from "./components/Header.vue";
+import MainHeader from "./components/MainHeader.vue";
 import Button from "./components/Button.vue";
 import ModalManager from "./components/modal/ModalManager.vue";
 import FinanceSummaryCard from "./components/FinanceSummaryCard.vue";
@@ -44,7 +44,7 @@ import { ModalTypeConstant } from "./constants/ModalConstants";
 import { TRANSACTION_TYPES } from "./constants/TransactionDetails";
 
 import { getTodaysData } from "./utils/getDate";
-import { getAllMoneyDetails } from "./utils/LocalStorage";
+import { getAllMoneyDetails,storeTransactionDetails,deleteAllTransactions } from "./utils/LocalStorage";
 
 const modalVisible = ref({});
 const buttonsInformation = [
@@ -76,6 +76,13 @@ const financialData = ref({
   ],
   transactions: [],
 });
+
+watch(financialData.value,()=>{
+  console.log('watch', financialData.value)
+  storeTransactionDetails(financialData.value)
+},{ deep: true })
+
+
 function checkNewUser() {
   let storedDetails = getAllMoneyDetails();
   if (!storedDetails.currentBalance) {
@@ -83,6 +90,9 @@ function checkNewUser() {
       isVisible: true,
       modalType: ModalTypeConstant.WELCOME_MODAL,
     };
+  }
+  else{
+    financialData.value=getAllMoneyDetails()
   }
 }
 function onClickAddIncomeModal() {
@@ -127,6 +137,33 @@ function modifyBalance(Transaction) {
       financialData.value.overAllDetails[2].value = Transaction.amount;
       onCloseModal();
       break;
+
+    case TRANSACTION_TYPES.RESTART:
+    deleteAllTransactions();
+    financialData.value={currentBalance: 0,
+  overAllDetails: [
+    {
+      id: 1,
+      description: "Income",
+      value: 0,
+      icon: "pi pi-arrow-up",
+    },
+    {
+      id: 2,
+      description: "Expense",
+      value: 0,
+      icon: "pi pi-arrow-down",
+    },
+    {
+      id: 3,
+      description: "Saving Goals",
+      value: 0,
+      icon: "pi pi-chart-bar",
+    },
+  ],
+  transactions: [],}
+    checkNewUser()
+    break;
   }
 }
 
@@ -149,6 +186,13 @@ function onClickIncome(typeOfTransaction) {
         isVisible: true,
         modalType: ModalTypeConstant.SAVING_MODAL,
       };
+    case ModalTypeConstant.RESTART_MODAL:
+      modalVisible.value={
+        isVisible:true,
+        modalType:ModalTypeConstant.RESTART_MODAL,
+      }
+ 
+    
   }
 }
 function onAddTransaction(task) {

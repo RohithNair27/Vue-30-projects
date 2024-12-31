@@ -1,5 +1,5 @@
 <template>
-  <BaseModal v-if="modalDetails.isVisible">
+  <BaseModal v-if="modalDetails.isVisible" @close="$emit('close')">
     <WelcomeModal
       v-if="modalDetails.modalType === ModalTypeConstant.WELCOME_MODAL"
       @closeModal="$emit('openAddIncomeModal')"
@@ -16,6 +16,11 @@
       v-else-if="modalDetails.modalType === ModalTypeConstant.SAVING_MODAL"
       @edit-expense="$emit('modifyBalance', $event)"
     />
+    <DeleteEverythingModal
+      v-else-if="modalDetails.modalType === ModalTypeConstant.RESTART_MODAL"
+      @delete-everything="$emit('modifyBalance', $event)"
+      @close="$emit('close')"
+    />
   </BaseModal>
 </template>
 <script setup>
@@ -24,57 +29,12 @@ import IncomeModal from "./IncomeModal.vue";
 import WelcomeModal from "./WelcomeModal.vue";
 import ExpenseModal from "./ExpenseModal.vue";
 import EditSavingModal from "./EditSavingModal.vue";
+import DeleteEverythingModal from './DeleteEverythingModal.vue'
+
 import { ModalTypeConstant } from "@/constants/ModalConstants";
 
 defineProps(["modalDetails"]);
 </script>
 <style>
-.modal-container-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-}
-.modal-container-header h1 {
-  padding: 0px;
-  margin: 0px;
-}
-.modal-input-container {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  padding: 20px;
-  justify-self: center;
-}
-.modal-input-container select {
-  border: 1px black solid;
-}
-.modal-input-container input {
-  all: unset;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px lightgray solid;
-}
-.modal-input-container label {
-  margin-bottom: 5px;
-}
-.input-container {
-  display: flex;
-  flex-direction: column;
-}
-.submit-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-.submit-container select {
-  /* height: 30px; */
-  padding-left: 10px;
-  width: 40%;
-}
+
 </style>
