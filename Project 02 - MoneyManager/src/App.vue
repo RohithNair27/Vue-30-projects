@@ -218,6 +218,7 @@ main {
 .total-cost-container {
   margin-top: 20px;
   width: 70%;
+  height:fit-content;
   background-color: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
@@ -246,5 +247,33 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+@media only screen and (max-width:800px){
+  .total-cost-container{
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+
+  }
+  .total-cost-container section{
+    text-align:center;
+  }
+  .finance-container{
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media screen and (max-width:650px){
+  .total-cost-button-container {
+  display:grid;
+  grid-template-columns: 1fr;   /* Only 1 column (full width) */
+  grid-template-rows: auto auto auto; /* Creates 3 rows, one for each item */
+  gap: 10px;                    /* Space between the rows */
+  width: 70%;       
+    
+  }
 }
 </style>
