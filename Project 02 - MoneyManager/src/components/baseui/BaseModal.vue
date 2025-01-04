@@ -76,4 +76,15 @@ const props = defineProps({ Modal: Object });
   padding-left: 10px;
   width: 40%;
 }
+@media only screen and (max-width:800px){
+  .modal-container {
+    width:70%;
+  }
+  .submit-container{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center
+  }
+}
 </style>

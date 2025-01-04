@@ -78,9 +78,8 @@ const financialData = ref({
 });
 
 watch(financialData.value,()=>{
-  console.log('watch', financialData.value)
   storeTransactionDetails(financialData.value)
-},{ deep: true })
+})
 
 
 function checkNewUser() {
@@ -181,11 +180,12 @@ function onClickIncome(typeOfTransaction) {
         modalType: ModalTypeConstant.EXPENSE_MODAL,
       };
       break;
-    case "Add saving goals":
+    case 'Add saving goals':
       modalVisible.value = {
         isVisible: true,
         modalType: ModalTypeConstant.SAVING_MODAL,
       };
+      break;
     case ModalTypeConstant.RESTART_MODAL:
       modalVisible.value={
         isVisible:true,

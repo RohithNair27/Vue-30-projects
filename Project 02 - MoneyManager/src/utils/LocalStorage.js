@@ -14,5 +14,5 @@ export function getAllMoneyDetails() {
 }
 
 export function deleteAllTransactions(){
-  localStorage.clear()
+  localStorage.removeItem("financialRecords")
 }

@@ -37,7 +37,6 @@
 </template>
 <script setup>
 import { ref } from "vue";
-
 import { TRANSACTION_TYPES } from "@/constants/TransactionDetails";
 
 let amount = ref("");
