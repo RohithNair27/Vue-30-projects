@@ -1,19 +1,14 @@
-:root{
-  --primary-color:#ffffff;
-  --seconday-color:#9CA3AF;
-  --background-color:#DBEAFE;
-  --button-color:#EF4444;
-
+:root {
+  --primary-color: #ffffff;
+  --seconday-color: #9ca3af;
+  --background-color: #dbeafe;
+  --seconday-background-color: rgba(0, 0, 0, 0.4);
+  --button-color: #ef4444;
 }
-body{
+body {
   background-color: var(--background-color);
-  padding:20px;
-
+  margin: 0px;
 }
-header{
- text-align: center; 
-}
-.container{
-  width:100%;
-  
+header {
+  text-align: center;
 }

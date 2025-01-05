@@ -5,7 +5,7 @@
     @openAddIncomeModal="onClickAddIncomeModal"
     @modifyBalance="modifyBalance"
   />
-  <MainHeader @click-delete-all="onClickIncome"/>
+  <MainHeader @click-delete-all="onClickIncome" />
   <main>
     <section class="total-cost-container">
       <section>
@@ -44,7 +44,11 @@ import { ModalTypeConstant } from "./constants/ModalConstants";
 import { TRANSACTION_TYPES } from "./constants/TransactionDetails";
 
 import { getTodaysData } from "./utils/getDate";
-import { getAllMoneyDetails,storeTransactionDetails,deleteAllTransactions } from "./utils/LocalStorage";
+import {
+  getAllMoneyDetails,
+  storeTransactionDetails,
+  deleteAllTransactions,
+} from "./utils/LocalStorage";
 
 const modalVisible = ref({});
 const buttonsInformation = [
@@ -77,10 +81,9 @@ const financialData = ref({
   transactions: [],
 });
 
-watch(financialData.value,()=>{
-  storeTransactionDetails(financialData.value)
-})
-
+watch(financialData.value, () => {
+  storeTransactionDetails(financialData.value);
+});
 
 function checkNewUser() {
   let storedDetails = getAllMoneyDetails();
@@ -89,9 +92,8 @@ function checkNewUser() {
       isVisible: true,
       modalType: ModalTypeConstant.WELCOME_MODAL,
     };
-  }
-  else{
-    financialData.value=getAllMoneyDetails()
+  } else {
+    financialData.value = getAllMoneyDetails();
   }
 }
 function onClickAddIncomeModal() {
@@ -138,31 +140,33 @@ function modifyBalance(Transaction) {
       break;
 
     case TRANSACTION_TYPES.RESTART:
-    deleteAllTransactions();
-    financialData.value={currentBalance: 0,
-  overAllDetails: [
-    {
-      id: 1,
-      description: "Income",
-      value: 0,
-      icon: "pi pi-arrow-up",
-    },
-    {
-      id: 2,
-      description: "Expense",
-      value: 0,
-      icon: "pi pi-arrow-down",
-    },
-    {
-      id: 3,
-      description: "Saving Goals",
-      value: 0,
-      icon: "pi pi-chart-bar",
-    },
-  ],
-  transactions: [],}
-    checkNewUser()
-    break;
+      deleteAllTransactions();
+      financialData.value = {
+        currentBalance: 0,
+        overAllDetails: [
+          {
+            id: 1,
+            description: "Income",
+            value: 0,
+            icon: "pi pi-arrow-up",
+          },
+          {
+            id: 2,
+            description: "Expense",
+            value: 0,
+            icon: "pi pi-arrow-down",
+          },
+          {
+            id: 3,
+            description: "Saving Goals",
+            value: 0,
+            icon: "pi pi-chart-bar",
+          },
+        ],
+        transactions: [],
+      };
+      checkNewUser();
+      break;
   }
 }
 
@@ -180,19 +184,17 @@ function onClickIncome(typeOfTransaction) {
         modalType: ModalTypeConstant.EXPENSE_MODAL,
       };
       break;
-    case 'Add saving goals':
+    case "Add saving goals":
       modalVisible.value = {
         isVisible: true,
         modalType: ModalTypeConstant.SAVING_MODAL,
       };
       break;
     case ModalTypeConstant.RESTART_MODAL:
-      modalVisible.value={
-        isVisible:true,
-        modalType:ModalTypeConstant.RESTART_MODAL,
-      }
- 
-    
+      modalVisible.value = {
+        isVisible: true,
+        modalType: ModalTypeConstant.RESTART_MODAL,
+      };
   }
 }
 function onAddTransaction(task) {
@@ -218,7 +220,7 @@ main {
 .total-cost-container {
   margin-top: 20px;
   width: 70%;
-  height:fit-content;
+  height: fit-content;
   background-color: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
@@ -249,31 +251,28 @@ main {
   gap: 20px;
 }
 
-@media only screen and (max-width:800px){
-  .total-cost-container{
+@media only screen and (max-width: 800px) {
+  .total-cost-container {
     display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items:center;
-
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  .total-cost-container section{
-    text-align:center;
+  .total-cost-container section {
+    text-align: center;
   }
-  .finance-container{
+  .finance-container {
     grid-template-columns: 1fr;
   }
-
 }
 
-@media screen and (max-width:650px){
+@media screen and (max-width: 650px) {
   .total-cost-button-container {
-  display:grid;
-  grid-template-columns: 1fr;   /* Only 1 column (full width) */
-  grid-template-rows: auto auto auto; /* Creates 3 rows, one for each item */
-  gap: 10px;                    /* Space between the rows */
-  width: 70%;       
-    
+    display: grid;
+    grid-template-columns: 1fr; /* Only 1 column (full width) */
+    grid-template-rows: auto auto auto; /* Creates 3 rows, one for each item */
+    gap: 10px; /* Space between the rows */
+    width: 70%;
   }
 }
 </style>
