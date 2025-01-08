@@ -61,13 +61,12 @@ const filterdPokemonData = computed(() =>
 async function getPokemonData(id) {
   isLoading.value = true;
   try {
-    let data = await fetch(getPokemon(id));
-    let json = await data.json();
+    let data = await getPokemon(id);
     PokemonData.value[id - 1] = {
       id,
       status: "CAUGHT",
-      name: json.species.name,
-      image: json.sprites.front_default,
+      name: data.species.name,
+      image: data.sprites.front_default,
     };
 
     isLoading.value = true;
